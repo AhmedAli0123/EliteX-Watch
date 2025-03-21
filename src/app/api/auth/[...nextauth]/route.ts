@@ -1,10 +1,9 @@
-import NextAuth, { SessionStrategy } from "next-auth";
+import NextAuth, { NextAuthOptions, SessionStrategy } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions } from "next-auth";
 import { Session } from "next-auth";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = { // Explicitly define type
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -17,7 +16,6 @@ export const authOptions = {
           throw new Error("Invalid credentials");
         }
 
-        // Replace with your actual authentication logic
         if (
           credentials.email === process.env.ADMIN_EMAIL &&
           credentials.password === process.env.ADMIN_PASSWORD
@@ -49,7 +47,7 @@ export const authOptions = {
     }
   },
   pages: {
-    signIn: "/admin/login", // Redirect unauthenticated users
+    signIn: "/admin/login",
   },
 };
 
