@@ -193,6 +193,7 @@ function Page() {
                   width={80}
                   height={80}
                   className="rounded-md"
+                  loading="lazy"
                 />
                 <div>
                   <h2 className="text-lg font-semibold">{item.name}</h2>

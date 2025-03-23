@@ -104,6 +104,8 @@ const ProductDetail = () => {
           <Image
             src={watch.image}
             alt={watch.name}
+            loading="lazy"
+
             layout="fill"
             objectFit="contain"
             className="rounded-xl shadow-lg"

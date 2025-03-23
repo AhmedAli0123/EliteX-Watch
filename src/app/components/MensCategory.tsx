@@ -103,6 +103,7 @@ const HoverableCard: React.FC<{ watch: FetchWatch }> = ({ watch }) => {
         <div className="relative w-full h-60">
           <Image
             src={watch.image}
+            loading="lazy"
             alt={watch.name}
             layout="fill"
             objectFit="cover"

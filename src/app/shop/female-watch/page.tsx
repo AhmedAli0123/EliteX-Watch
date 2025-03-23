@@ -59,6 +59,7 @@ const HoverableCard: React.FC<HoverableCardProps> = ({ watch }) => {
             alt={watch.name}
             layout="fill"
             objectFit="cover"
+            loading="lazy"
             className="rounded-lg"
           />
         </div>

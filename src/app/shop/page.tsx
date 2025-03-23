@@ -64,6 +64,7 @@ const HoverableCard: React.FC<HoverableCardProps> = ({ watch }) => {
           <Image
             src={watch.image}
             alt={watch.name}
+            loading="lazy"
             layout="fill"
             objectFit="cover"
             className="rounded-lg"

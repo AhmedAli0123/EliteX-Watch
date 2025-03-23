@@ -20,6 +20,7 @@ const HeroCarousel = () => {
                 <Image
                   src={src}
                   alt={`Watch ${index + 1}`}
+                  loading="lazy"
                   layout="fill"
                   objectFit="cover"
                   className="rounded-lg"

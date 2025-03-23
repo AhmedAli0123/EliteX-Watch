@@ -268,6 +268,7 @@ export default function CheckoutPage() {
               <Image
                 src={product.image}
                 alt={product.name}
+                loading="lazy"
                 fill
                 className="rounded-md object-cover"
               />

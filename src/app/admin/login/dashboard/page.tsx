@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ResponsiveSidebar from "../../component/Sidebar";
 import ProtectedRoute from "../../component/ProtectedRoute";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -17,15 +19,24 @@ export default function Dashboard() {
     router.push("/admin/login");
     return null;
   }
+
+  const navigateTo = (path:string) => {
+    router.push(path);
+  };
+
   return (
     <ProtectedRoute>
-    <div className="flex my-14">
-      <ResponsiveSidebar />
-      <div className="ml-64 p-10">
-        <h1 className="text-2xl font-bold">Welcome to Admin Dashboard</h1>
-        <p className="mt-4">Here you can manage products and orders.</p>
+      <div className="flex flex-col justify-around  md:flex-row my-16 min-h-screen gap-5">
+        <ResponsiveSidebar />
+        <div className="flex-1 p-4 md:ml-64">
+          <h1 className="text-2xl font-bold">Welcome to Admin Dashboard</h1>
+          <p className="mt-4">Here you can manage products and orders.</p>
+          <div className="flex gap-5 mt-9">
+          <Button onClick={() => navigateTo('/admin/login/dashboard/products')}>Manage Product</Button>
+          <Button onClick={() => navigateTo('/admin/login/dashboard/orders')}>Manage Order</Button>
+          </div>
+        </div>
       </div>
-    </div>
     </ProtectedRoute>
   );
 }

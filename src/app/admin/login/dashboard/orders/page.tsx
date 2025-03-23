@@ -5,18 +5,21 @@ import Sidebar from "@/app/admin/component/Sidebar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 export default function Orders() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/admin/login");
-    }
-  }, [status, router]);
+  const [order, setOrder] = useState<orderType[]>([]); // ✅ Declared at the top level
 
-  const [order, setOrder] = useState<orderType[]>([]);
+  useEffect(() => {
+    if (status === "loading") return; // Wait for session to load
+    if (!session) {
+      router.push("/admin/login"); // ✅ Push inside useEffect
+    }
+  }, [session, status, router]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -33,34 +36,42 @@ export default function Orders() {
     fetchOrder();
   }, []);
 
+  if (status === "loading") {
+    return <p>Loading...</p>; // ✅ Safe loading fallback
+  }
+
+  if (!session) {
+    return null; // ✅ Safe fallback without running more hooks
+  }
+
   return (
     <div className="flex flex-col gap-4 lg:flex-row my-16">
       <Sidebar className="w-full lg:w-64" />
       <div className="p-4 lg:p-10 w-full">
         <h1 className="text-xl lg:text-2xl font-bold mb-4">View Orders</h1>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300 text-sm lg:text-base">
-            <thead>
-              <tr className="bg-gray-200 text-black">
-                <th className="border p-2">Customer</th>
-                <th className="border p-2">Total</th>
-                <th className="border p-2">Status</th>
-                <th className="border p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Customer</TableHead>
+                <TableHead>Total</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {order.map((order) => (
-                <tr key={order._id}>
-                  <td className="border p-2">{order.firstName} {order.lastName}</td>
-                  <td className="border p-2">${order.total}</td>
-                  <td className="border p-2">{order.status}</td>
-                  <td className="border p-2 flex flex-wrap gap-2">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs lg:text-sm">View</button>
-                  </td>
-                </tr>
+                <TableRow key={order._id}>
+                  <TableCell>{order.firstName} {order.lastName}</TableCell>
+                  <TableCell>${order.total}</TableCell>
+                  <TableCell>{order.status}</TableCell>
+                  <TableCell>
+                    <Button>View</Button>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>

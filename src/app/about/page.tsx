@@ -14,6 +14,7 @@ export default function AboutPage() {
         <Image 
           src="/eliteX.png" 
           alt="EliteX Watch Logo" 
+          loading='lazy'
           width={180} 
           height={180} 
           objectFit="cover"
