@@ -12,19 +12,16 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+    
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
-  
-    console.log("Login Result: ", result); // 👈 Log the result
-  
+
     if (result?.error) {
       alert("Invalid email or password");
     } else {
-      console.log("Pushing to dashboard...");
       router.push("/admin/login/dashboard"); // Redirect to admin panel after login
     }
   };
@@ -36,13 +33,11 @@ export default function LoginPage() {
 
   return (
     <div className="flex justify-center items-center h-screen b">
-      <form onSubmit={handleSubmit} className="p-6 shadow-md rounded-lg w-80">
+      <form onSubmit={handleSubmit} className="p-6  shadow-md rounded-lg w-80">
         <h2 className="text-xl font-bold mb-4 text-center">Admin Login</h2>
         
         <input
           type="email"
-          name="email"
-          id="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -53,8 +48,6 @@ export default function LoginPage() {
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
-            name="password"
-            id="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

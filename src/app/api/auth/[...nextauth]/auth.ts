@@ -44,9 +44,13 @@ export const authOptions: AuthOptions = {
         image?: string | null;
       };
       return session;
-    }
+    },
+    async redirect({ baseUrl }) {
+      return `${baseUrl}/admin/login/dashboard`; // ✅ Redirect on success
+    },
   },
   pages: {
     signIn: "/admin/login",
+    error: "/admin/login",
   },
 }; 
