@@ -18,6 +18,7 @@ export default function LoginPage() {
       password,
       redirect: false,
     });
+    console.log(result);
 
     if (result?.error) {
       alert("Invalid email or password");
@@ -33,11 +34,13 @@ export default function LoginPage() {
 
   return (
     <div className="flex justify-center items-center h-screen b">
-      <form onSubmit={handleSubmit} className="p-6  shadow-md rounded-lg w-80">
+      <form onSubmit={handleSubmit} className="p-6 shadow-md rounded-lg w-80">
         <h2 className="text-xl font-bold mb-4 text-center">Admin Login</h2>
         
         <input
           type="email"
+          name="email"
+          id="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -48,6 +51,8 @@ export default function LoginPage() {
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
+            name="password"
+            id="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
