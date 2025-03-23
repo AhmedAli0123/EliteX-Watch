@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import ResponsiveSidebar from "../../component/Sidebar";
-// import ProtectedRoute from "../../component/ProtectedRoute";
 import { Button } from "@/components/ui/button";
 
 export default function Dashboard() {
@@ -13,7 +12,6 @@ export default function Dashboard() {
   };
 
   return (
-    // <ProtectedRoute>
       <div className="flex flex-col justify-around  md:flex-row my-16 min-h-screen gap-5">
         <ResponsiveSidebar />
         <div className="flex-1 p-4 md:ml-64">
@@ -25,6 +23,5 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    // </ProtectedRoute>
   );
 }

@@ -13,28 +13,16 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: true,
-      callbackUrl: "/admin/login/dashboard/",
-    });
-    console.log("Result",result); // Log the result to debug errors
-
-
-    if (result?.error) {
-      alert("Invalid email or password");
-    } else {
-      router.push("/admin/login/dashboard"); // Redirect to admin panel after login
-    }
+    // if (result?.error) {
+    //   alert("Invalid email or password");
+    // } else {
+    //   router.push("/admin/login/dashboard"); // Redirect to admin panel after login
+    // }
   };
 
+  console.log(email)
+    console.log(password)
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const { data: session, status } = useSession();
-console.log("Session Data:", session);
-console.log("Session Status:", status);
 
   return (
     <div className="flex justify-center items-center h-screen b">
@@ -52,7 +40,7 @@ console.log("Session Status:", status);
 
         <div className="relative">
           <input
-            type={showPassword ? "text" : "password"}
+            // type={showPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -61,10 +49,10 @@ console.log("Session Status:", status);
           />
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
+            // onClick={() => setShowPassword(!showPassword)}
             className="absolute right-2 top-1/2 transform -translate-y-1/2"
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {/* {showPassword ? <EyeOff size={20} /> : <Eye size={20} />} */}
           </button>
         </div>
 
