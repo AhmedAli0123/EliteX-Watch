@@ -25,7 +25,7 @@ export default function LoginPage() {
       alert("Invalid email or password");
     } else {
       console.log("Pushing to dashboard...");
-      window.location.href = "/admin/login/dashboard"; // Redirect to admin panel after login
+      router.push("/admin/login/dashboard"); // Redirect to admin panel after login
     }
   };
 
