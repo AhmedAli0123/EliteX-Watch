@@ -12,18 +12,20 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+  
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
-    console.log(result);
-
+  
+    console.log("Login Result: ", result); // 👈 Log the result
+  
     if (result?.error) {
       alert("Invalid email or password");
     } else {
-      router.push("/admin/login/dashboard"); // Redirect to admin panel after login
+      console.log("Pushing to dashboard...");
+      window.location.href = "/admin/login/dashboard"; // Redirect to admin panel after login
     }
   };
 
