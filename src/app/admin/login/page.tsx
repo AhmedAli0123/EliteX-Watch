@@ -16,8 +16,11 @@ export default function LoginPage() {
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: "https://elite-x-watch.vercel.app/admin/login/dashboard/admin/login/dashboard",
     });
+    console.log("Result",result); // Log the result to debug errors
+
 
     if (result?.error) {
       alert("Invalid email or password");

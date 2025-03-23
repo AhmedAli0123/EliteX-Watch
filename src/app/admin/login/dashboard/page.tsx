@@ -5,20 +5,19 @@ import { useRouter } from "next/navigation";
 import ResponsiveSidebar from "../../component/Sidebar";
 import ProtectedRoute from "../../component/ProtectedRoute";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/admin/login"); // Avoid push to prevent stack
+    }
+  }, [status]);
 
-  if (!session) {
-    router.push("/admin/login");
-    return null;
-  }
+  if (status === "loading") return <p>Loading...</p>;
 
   const navigateTo = (path:string) => {
     router.push(path);
