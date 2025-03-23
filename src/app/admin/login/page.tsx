@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
@@ -17,7 +17,7 @@ export default function LoginPage() {
       email,
       password,
       redirect: true,
-      callbackUrl: "https://elite-x-watch.vercel.app/admin/login/dashboard/admin/login/dashboard",
+      callbackUrl: "/admin/login/dashboard/",
     });
     console.log("Result",result); // Log the result to debug errors
 
@@ -32,7 +32,9 @@ export default function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  
+  const { data: session, status } = useSession();
+console.log("Session Data:", session);
+console.log("Session Status:", status);
 
   return (
     <div className="flex justify-center items-center h-screen b">

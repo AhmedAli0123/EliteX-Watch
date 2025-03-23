@@ -9,17 +9,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 
 export default function Orders() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
 
   const [order, setOrder] = useState<orderType[]>([]); // ✅ Declared at the top level
 
-  useEffect(() => {
-    if (status === "loading") return; // Wait for session to load
-    if (!session) {
-      router.push("/admin/login"); // ✅ Push inside useEffect
-    }
-  }, [session, status, router]);
+  
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -36,13 +29,7 @@ export default function Orders() {
     fetchOrder();
   }, []);
 
-  if (status === "loading") {
-    return <p>Loading...</p>; // ✅ Safe loading fallback
-  }
-
-  if (!session) {
-    return null; // ✅ Safe fallback without running more hooks
-  }
+  
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row my-16">

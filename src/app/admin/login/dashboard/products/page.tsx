@@ -14,23 +14,16 @@ import Swal from "sweetalert2";
 const ProductsPage = () => {
   const [order, setOrder] = useState<FetchWatch[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "loading") return;
-    if (!session) {
-      router.push("/admin/login");
-      return;
-    }
-    
     const fetchWatches = async () => {
       const query = `*[_type == "watch"]{_id, name, price, category, "slug": slug.current, originalPrice, "image": image.asset->url}`;
       const data: FetchWatch[] = await client.fetch(query, {}, { cache: "no-store" });
       setOrder(data);
     };
     fetchWatches();
-  }, [session, status, router]);
+  }, );
 
 
 const handleDelete = async (id: string) => {
@@ -71,14 +64,7 @@ const handleDelete = async (id: string) => {
 
   const filteredData = categoryFilter === "all" ? order : order.filter((product) => product.category === categoryFilter);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
-
-  if (!session) {
-    return null;
-  }
-
+  
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row my-16">
