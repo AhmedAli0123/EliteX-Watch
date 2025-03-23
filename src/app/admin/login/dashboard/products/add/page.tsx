@@ -21,7 +21,7 @@ const AddProduct = () => {
     category: "mens", // Default category
     featured: false,
     description: "",
-    image: null, // File object
+    image: null as File | null, // File object or null
   });
 
   // Handle Text & Select Input Change
