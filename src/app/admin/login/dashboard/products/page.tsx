@@ -5,7 +5,6 @@ import { client } from "@/sanity/lib/client";
 import { useEffect, useState } from "react";
 import { FetchWatch } from "../../../../../../types/watches";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Swal from "sweetalert2";

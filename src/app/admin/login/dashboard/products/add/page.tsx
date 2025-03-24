@@ -3,13 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { client } from "@/sanity/lib/client";
-import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const router = useRouter();
-  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
 
   // State for Product Details
@@ -112,10 +110,6 @@ const AddProduct = () => {
     return asset._id;
   };
 
-  if (!session) {
-    router.push("/admin/login");
-    return null;
-  }
 
   return (
     <div className="p-10 my-16">

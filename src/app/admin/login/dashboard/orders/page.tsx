@@ -3,8 +3,6 @@ import { client } from "@/sanity/lib/client";
 import { orderType } from "../../../../../../types/order";
 import Sidebar from "@/app/admin/component/Sidebar";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
