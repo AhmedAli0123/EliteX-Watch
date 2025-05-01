@@ -45,64 +45,67 @@ const AddProduct = () => {
   };
 
   // Upload Product to Sanity
-  const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (
-      !product.name ||
-      !product.price ||
-      !product.originalPrice ||
-      !product.description ||
-      !product.image
-    ) {
-      return Swal.fire("Error", "Please fill in all required fields", "error");
-    }
+  if (
+    !product.name ||
+    !product.price ||
+    !product.originalPrice ||
+    !product.description ||
+    !product.image
+  ) {
+    return Swal.fire("Error", "Please fill in all required fields", "error");
+  }
 
-    try {
-      setLoading(true);
-      const assetRef = await uploadImage(product.image);
+  try {
+    setLoading(true);
+    const assetRef = await uploadImage(product.image);
 
-      const productDoc = {
-        _type: "watch",
-        name: product.name,
-        slug: {
-          _type: "slug",
-          current: product.slug || generateSlug(product.name),
+    const productDoc = {
+      _type: "watch",
+      name: product.name,
+      slug: {
+        _type: "slug",
+        current: product.slug || generateSlug(product.name),
+      },
+      price: parseFloat(product.price),
+      originalPrice: parseFloat(product.originalPrice),
+      category: product.category,
+      featured: product.featured,
+      description: [
+        {
+          _type: "block",
+          _key: crypto.randomUUID(), // ✅ Generates a unique key
+          children: [
+            {
+              _type: "span",
+              _key: crypto.randomUUID(), // ✅ Unique key for child span
+              text: product.description,
+            },
+          ],
         },
-        price: parseFloat(product.price),
-        originalPrice: parseFloat(product.originalPrice),
-        category: product.category,
-        featured: product.featured,
-        description: [
-          {
-            _type: "block",
-            children: [
-              {
-                _type: "span",
-                text: product.description,
-              },
-            ],
-          },
-        ],
-        image: {
-          _type: "image",
-          asset: {
-            _type: "reference",
-            _ref: assetRef,
-          },
+      ],
+      image: {
+        _type: "image",
+        asset: {
+          _type: "reference",
+          _ref: assetRef,
         },
-      };
+      },
+    };
 
-      await client.create(productDoc);
-      Swal.fire("Success", "Product added successfully", "success");
-      router.push("/admin/login/dashboard/products"); // Redirect after success
-    } catch (error) {
-      console.error("Failed to add product:", error);
-      Swal.fire("Error", "Failed to add product", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+    await client.create(productDoc);
+    Swal.fire("Success", "Product added successfully", "success");
+    router.push("/admin/login/dashboard/products"); // Redirect after success
+  } catch (error) {
+    console.error("Failed to add product:", error);
+    Swal.fire("Error", "Failed to add product", "error");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // Upload Image to Sanity
   const uploadImage = async (file: File) => {
@@ -114,7 +117,7 @@ const AddProduct = () => {
   return (
     <div className="p-10 my-16">
       <h1 className="text-2xl font-bold mb-4">Add New Product</h1>
-      <form onSubmit={handleAddProduct} className="space-y-4 bg-white p-6 shadow-md rounded">
+      <form onSubmit={handleAddProduct} className="space-y-4  p-6 shadow-md rounded">
         
         {/* Name Field */}
         <input

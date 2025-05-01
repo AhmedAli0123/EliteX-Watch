@@ -6,6 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Toaster, toast } from "react-hot-toast";
+import { Label } from "@/components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Loader2 } from "lucide-react";
 
 export default function EditProduct() {
   const router = useRouter();
@@ -87,67 +91,114 @@ export default function EditProduct() {
     <div className="p-6 my-16">
       <Toaster />
       <h1 className="text-2xl font-bold mb-4">Edit Product</h1>
-      <form onSubmit={handleUpdate} className="space-y-4">
-        <Input
-          placeholder="Product Name"
-          name="name"
-          value={product.name}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          placeholder="Slug"
-          name="slug"
-          value={product.slug}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Price"
-          name="price"
-          value={product.price}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Original Price"
-          name="originalPrice"
-          value={product.originalPrice}
-          onChange={handleChange}
-        />
-        <select
-          name="category"
-          value={product.category}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        >
-          <option value="mens">Men&apos;s Watch</option>
-          <option value="ladies">Ladies Watch</option>
-          <option value="smart">Smart Watch</option>
-          <option value="sport">Sport Watch</option>
-        </select>
-
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="featured"
-            checked={product.featured}
+      <form onSubmit={handleUpdate} className="space-y-6 max-w-2xl mx-auto">
+        <div className="space-y-2">
+          <Label htmlFor="name">Product Name</Label>
+          <Input
+            id="name"
+            placeholder="Enter product name"
+            name="name"
+            value={product.name}
             onChange={handleChange}
+            required
+            className="w-full"
           />
-          <label>Featured Product</label>
         </div>
 
-        <Textarea
-          placeholder="Description"
-          name="description"
-          value={product.description}
-          onChange={handleChange}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="slug">Slug</Label>
+          <Input
+            id="slug"
+            placeholder="Enter product slug"
+            name="slug"
+            value={product.slug}
+            onChange={handleChange}
+            required
+            className="w-full"
+          />
+        </div>
 
-        <Button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Product"}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="price">Price</Label>
+            <Input
+              id="price"
+              type="number"
+              placeholder="Enter price"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              required
+              className="w-full"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="originalPrice">Original Price</Label>
+            <Input
+              id="originalPrice"
+              type="number"
+              placeholder="Enter original price"
+              name="originalPrice"
+              value={product.originalPrice}
+              onChange={handleChange}
+              className="w-full"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="category">Category</Label>
+          <Select
+            name="category"
+            value={product.category}
+            onValueChange={(value) => handleChange({ target: { name: 'category', value } })}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="mens">Men&lsquo;`s Watch</SelectItem>
+              <SelectItem value="ladies">Ladies Watch</SelectItem>
+              <SelectItem value="smart">Smart Watch</SelectItem>
+              <SelectItem value="sport">Sport Watch</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="featured"
+            name="featured"
+            checked={product.featured}
+            onCheckedChange={(checked) => handleChange({ target: { name: 'featured', checked } })}
+          />
+          <Label htmlFor="featured" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Featured Product
+          </Label>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="description">Description</Label>
+          <Textarea
+            id="description"
+            placeholder="Enter product description"
+            name="description"
+            value={product.description}
+            onChange={handleChange}
+            className="min-h-[100px]"
+          />
+        </div>
+
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Updating...
+            </>
+          ) : (
+            "Update Product"
+          )}
         </Button>
       </form>
     </div>

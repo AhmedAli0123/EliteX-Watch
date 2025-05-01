@@ -78,7 +78,6 @@ const HoverableCard: React.FC<HoverableCardProps> = ({ watch }) => {
         </div>
         {hovered && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white gap-2 transition-opacity duration-300">
-            <Button className="bg-white text-black">Add to Cart</Button>
             
             <Button variant="outline" className="bg-white text-black"
             onClick={()=> handleNavigate(watch.slug)}
